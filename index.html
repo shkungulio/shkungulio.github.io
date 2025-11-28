@@ -18,6 +18,7 @@
       --radius-lg: 16px;
       --radius-pill: 999px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --scroll-y: 0;
     }
 
     * {
@@ -33,6 +34,22 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Parallax background layer */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -80px;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.15), transparent 55%),
+        radial-gradient(circle at 90% 20%, rgba(59, 130, 246, 0.22), transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(15, 23, 42, 0.95), #020617 80%);
+      transform: translate3d(0, calc(var(--scroll-y) * -0.15px), 0);
+      pointer-events: none;
     }
 
     a {
@@ -249,6 +266,27 @@
       color: var(--muted);
     }
 
+    /* About image placeholder */
+    .hero-image-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.9rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 0.5rem;
+    }
+
     /* ---------- Section Headings ---------- */
     .section-heading {
       display: flex;
@@ -290,6 +328,25 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    /* Project image placeholder */
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 55%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.95), #020617 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.7rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 0.4rem;
     }
 
     .project-label {
@@ -349,9 +406,8 @@
       text-decoration: none;
     }
 
-    /* ---------- Contact & Social ---------- */
-    #contact,
-    #social {
+    /* ---------- Contact ---------- */
+    #contact {
       background: rgba(15, 23, 42, 0.75);
       border-radius: var(--radius-lg);
       padding: 1rem 1rem 1.1rem;
@@ -420,43 +476,50 @@
       resize: vertical;
     }
 
-    .social-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 0.5rem;
-    }
-
-    .social-chip {
-      font-size: 0.85rem;
-      padding: 0.4rem 0.9rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .social-chip strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .social-chip:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      text-decoration: none;
-    }
-
+    /* ---------- Footer & Social Icons ---------- */
     footer {
       font-size: 0.8rem;
       color: var(--muted);
-      text-align: center;
       margin-top: 1.5rem;
       padding-top: 1rem;
       border-top: 1px solid #111827;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      opacity: 0.9;
+    }
+
+    .footer-social {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .footer-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
     }
 
     /* ---------- Responsive ---------- */
@@ -487,6 +550,11 @@
       .page {
         padding: 1.25rem 1rem 3rem;
       }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
@@ -498,7 +566,6 @@
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-        <a href="#social">Social</a>
       </div>
     </nav>
   </header>
@@ -548,6 +615,9 @@
         </div>
 
         <aside class="hero-card">
+          <div class="hero-image-placeholder">
+            Your photo / illustration goes here
+          </div>
           <div class="hero-card-inner">
             <div class="hero-card-title">At a Glance</div>
             <div class="hero-card-stat">8+ Projects</div>
@@ -579,6 +649,9 @@
           <!-- Project 1 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 01</div>
               <h3 class="project-title">Divvy Bike-Share Usage Analytics</h3>
               <p class="project-meta">
@@ -602,6 +675,9 @@
           <!-- Project 2 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 02</div>
               <h3 class="project-title">Heart Disease Risk Forecasting</h3>
               <p class="project-meta">
@@ -623,6 +699,9 @@
           <!-- Project 3 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 03</div>
               <h3 class="project-title">Energy Demand Forecasting</h3>
               <p class="project-meta">
@@ -644,6 +723,9 @@
           <!-- Project 4 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 04</div>
               <h3 class="project-title">Diabetes Risk Predictions</h3>
               <p class="project-meta">
@@ -665,6 +747,9 @@
           <!-- Project 5 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 05</div>
               <h3 class="project-title">Customer Churn Analysis</h3>
               <p class="project-meta">
@@ -686,6 +771,9 @@
           <!-- Project 6 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 06</div>
               <h3 class="project-title">Sales Performance Dashboard</h3>
               <p class="project-meta">
@@ -707,6 +795,9 @@
           <!-- Project 7 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 07</div>
               <h3 class="project-title">Clustering Customer Segments</h3>
               <p class="project-meta">
@@ -728,6 +819,9 @@
           <!-- Project 8 -->
           <article class="project-card">
             <div>
+              <div class="project-thumb">
+                Project image placeholder
+              </div>
               <div class="project-label">Project 08</div>
               <h3 class="project-title">Excel-First Business Analytics</h3>
               <p class="project-meta">
@@ -801,60 +895,64 @@
           </form>
         </div>
       </section>
-
-      <!-- SOCIAL LINKS -->
-      <section id="social" style="margin-top: 1.75rem;">
-        <div class="section-heading">
-          <h2>Social Links</h2>
-          <p>Connect with me around data, analytics, and tech.</p>
-        </div>
-
-        <div class="social-list">
-          <a
-            class="social-chip"
-            href="https://www.linkedin.com/in/your-linkedin"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <strong>LinkedIn</strong> @ your-linkedin
-          </a>
-
-          <a
-            class="social-chip"
-            href="https://github.com/your-github"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <strong>GitHub</strong> @ your-github
-          </a>
-
-          <a
-            class="social-chip"
-            href="https://medium.com/@your-handle"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <strong>Medium</strong> @ your-handle
-          </a>
-
-          <a
-            class="social-chip"
-            href="#contact"
-          >
-            <strong>Email</strong> via Contact Section
-          </a>
-        </div>
-      </section>
     </main>
 
     <footer>
-      &copy; <span id="year"></span> Your Name &middot; Data Analytics Portfolio
+      <div class="footer-inner">
+        <div class="footer-copy">
+          &copy; <span id="year"></span> Your Name &middot; Data Analytics Portfolio
+        </div>
+        <div class="footer-social">
+          <a
+            class="footer-icon"
+            href="https://www.linkedin.com/in/your-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            in
+          </a>
+          <a
+            class="footer-icon"
+            href="https://github.com/your-github"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            GH
+          </a>
+          <a
+            class="footer-icon"
+            href="https://medium.com/@your-handle"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Medium"
+          >
+            M
+          </a>
+          <a
+            class="footer-icon"
+            href="mailto:your.email@example.com"
+            aria-label="Email"
+          >
+            @
+          </a>
+        </div>
+      </div>
     </footer>
   </div>
 
   <script>
     // Update footer year automatically
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Parallax scroll variable
+    window.addEventListener("scroll", function () {
+      document.documentElement.style.setProperty(
+        "--scroll-y",
+        window.scrollY.toString()
+      );
+    });
   </script>
 </body>
 </html>
